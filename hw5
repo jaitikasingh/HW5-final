@@ -1,0 +1,233 @@
+//============================================================================
+// Name        : HW.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+//============================================================================
+// Name        : HW5.cpp
+// Author      : Me
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+#include <iostream>
+#include <stack>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <string>
+using namespace std; 
+
+void bubblesort (int A[], int n) {
+	int swap=0;//bubble sort function that will read and organize the files in bubblesort
+	int comparison=0;
+	int i, j, temp;
+	for (int i=1; i<n-i; j++) {
+
+		for (j=0; j<n-i; j++){
+			comparison++;
+		if (A[j]>A[j+i]){
+			swap++;
+			temp = A[j];
+			A[j]=A[j+1];
+			A[j+1]=temp;
+
+		}
+	}
+
+}
+	cout<<"Swaps:"<<swap<<endl; //couting swaps and comparisons
+			cout<<"Comparisons"<<comparison<<endl;
+
+}
+void InsertionSort (int A [], int n) {
+	int swap=0;
+	int comparison=0;//inserting counting variables
+	int i,j, element;
+	for ( i=1; i<n; i++){//goes through insert function through the for loop
+		element= A[i];
+		j=i;
+while ((j>0) && A[j-1]>element) {
+	swap++; 
+	A[j]=A[j-1];
+		j=j-1;
+
+		}
+comparison++;
+		A[j] =element;
+
+
+	}
+	cout<<" Number of Swaps= "<<swap<<endl;
+		cout<<"Number of Comparisons= "<<comparison<<endl;
+}
+void shellSort(int A[], int n)
+{
+
+cout<<"Shell Sort"<<endl; //going through shell sort with the swaps and comparisons
+int comparison = 0;
+int swap = 0;
+int temp, gap, i;
+int swapped;
+gap = n/2;
+do
+	{
+		do
+{
+			swapped =0;
+			for (i=0;i<n-gap;i++)
+{
+			comparison++;
+			if (A[i]>A[i+gap])
+
+{
+			temp = A[i];
+			swap = swap++;
+			A[i]=A[i+gap];
+			A[i+gap]=temp;
+			swapped=1;
+
+}
+}
+}while (swapped==1);
+
+}while((gap=gap/2)>=1);
+
+
+for(int k = 0; k< n; k++){  
+ cout<<A[k]<<endl;
+
+}
+cout <<"Number of comparisons = "<<comparison<<endl;
+	cout<<"Number of swaps = "<<swap<<endl;
+}
+int swap_merge=0;
+int comparison_merge=0;
+
+void merge (int A[], int low, int high, int mid)
+{
+
+int i, j, k;
+int * C; //merge function that will read the ints
+C = new int [10000];
+i=low; 
+j=mid+1;
+k=0;
+while ((i<=mid) && (j<=high))
+{
+	comparison_merge++;
+	if (A[i]<A[j]) {
+		C[k]=A[j++];
+}
+	else {
+		C[k] = A[j++];
+	}
+	k++;
+	}
+	while (i<=mid)
+C[k++]= A[i++];
+
+	while (j<=high)
+		C[k++]=A[j++];
+for (i=low, j=0; i<=high; i++, j++) {
+					A[i]=C[i];
+
+}
+cout<<"Number of Swaps= :"<<swap_merge<<endl;
+	cout<<"Number of Comparisons= "<<comparison_merge<<endl;
+}
+
+
+
+
+void mergeSort(int A[], int low, int high)
+{
+	int mid;
+	if (low<high) //mergesort function that sorts
+{
+		mid = (low+high)/2;
+		mergeSort(A, low, mid);
+		mergeSort(A,mid+1,high);
+		merge(A,low, high, mid);
+		swap_merge ++;
+
+}
+
+}
+int swap_count = 0; //global variables for swap and comparison
+int comparison = 0;
+int partition(int a[], int left, int right, int pivotIndex)
+{
+ //the first function of the quicksort that will compare the pivots
+    int pivot = a[pivotIndex];
+    do
+    {
+        while (a[left] < pivot) left++;
+        while (a[right] > pivot) right--;
+        comparison++;
+        if (left < right && a[left] != a[right])
+        {
+        	swap_count = swap_count + 1;
+        	cout << swap_count << endl;
+            swap(a[left], a[right]);
+        }
+        else
+        {
+            return right;
+        }
+    }
+    while (left < right);
+    return right;
+    cout<<"Number of Swaps = "<<swap_count<<endl; //couting the sort and comparisons
+    cout<<"Number of Comparisons"<<comparison<<endl;
+}
+int quickSort(int a[], int left, int right)
+{
+    if (left < right) //the quicksort is testing the left and right for the sort
+    {
+        int pivot = (left + right) / 2; // middle
+        int pivotNew = partition(a, left, right, pivot);
+        quickSort(a, left, pivotNew - 1);
+        quickSort(a, pivotNew + 1, right);
+    }
+    cout<<"Swap"<<swap_count<<endl;
+    cout<<"Comparison"<<comparison<<endl;
+}
+
+int main ()
+{
+	string *textfile =new string [4];
+	textfile[0]="FewUnique.txt"; //reading in the text file
+	textfile [1]= "NearlySorted.txt";
+	textfile [2]="Random.txt";
+	textfile[3]="Reversed.txt";
+string *numbers =new string [10000];
+	int *nums=new int [10000];
+	for (int i=0; i<4; i++){
+	ifstream x;
+
+	x.open (textfile[i]);
+	nums=NULL;
+for (int b=0;b<10000;b++) {
+	std::getline(x,numbers[b],' ');
+
+	}
+	int A []={1,2,3,5,4}; //testing it with the small array
+	//cout<<"Bubble Sort"<<endl;
+	//bubblesort (A,5);
+	cout<<"InsertionSort : "<<endl;
+	InsertionSort (A,5);
+	cout<<"ShellSort : "<<endl;
+	shellSort (A,5);
+	cout<<"MergeSort :"<<endl;
+	mergeSort (A,4,5);
+	cout<<"QuickSort :  "<<endl;
+	quickSort (A,0,5);
+
+	}
+
+	return 0;
+}
